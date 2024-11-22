@@ -42,8 +42,8 @@ jobs:
          gcloud auth configure-docker europe-west8-docker.pkg.dev
     - name: 'Build and push container'
       run: |-
-         docker build -t "europe-west8-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}" ./app
-         docker push "europe-west8-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}"
+         docker build -t "europe-west8-docker.pkg.dev/www.charos.eu:${{ github.sha }}" ./app
+         docker push "europe-west8-docker.pkg.dev/www.charos.eu:${{ github.sha }}"
     - name: 'Create release name'
       run: |-
          echo "RELEASE_NAME=${{ env.APP }}-${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> ${GITHUB_ENV}
