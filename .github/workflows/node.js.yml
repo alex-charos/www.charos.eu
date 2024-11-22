@@ -32,8 +32,7 @@ jobs:
       id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
-         workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
-         service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}' # Replace with the name of your GitHub Actions secret
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
       with:
