@@ -42,8 +42,8 @@ jobs:
          gcloud auth configure-docker europe-west12-docker.pkg.dev
     - name: 'Build and push container'
       run: |-
-         docker build -t "europe-west12-docker.pkg.dev/personal-website:${{ github.sha }}" .
-         docker push "europe-west12-docker.pkg.dev/personal-website:${{ github.sha }}"
+         docker build -t "europe-west12-docker.pkg.dev/personal-website-442420/cloud-run-source-deploy/personal-website:${{ github.sha }}" .
+         docker push "europe-west12-docker.pkg.dev/personal-website-442420/cloud-run-source-deploy/personal-website:${{ github.sha }}"
     - name: 'Create release name'
       run: |-
          echo "RELEASE_NAME=${{ env.APP }}-${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> ${GITHUB_ENV}
@@ -55,12 +55,12 @@ jobs:
          region: '${{ env.REGION }}'
          description: '${{ env.GITHUB_COMMIT_MSG }}'
          skaffold_file: 'config/skaffold.yaml'
-         images: 'app=europe-west12-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}'
+         images: 'app=europe-west12-docker.pkg.dev/personal-website-442420/cloud-run-source-deploy:${{ github.sha }}'
     - name: Deploy to Cloud Run
       id: deploy
       uses: google-github-actions/deploy-cloudrun@v2
       with:
         service: 'personal-website'
-        image: 'europe-west12-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}'
+        image: 'europe-west12-docker.pkg.dev/personal-website-442420/cloud-run-source-deploy:${{ github.sha }}'
 
   
