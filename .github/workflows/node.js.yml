@@ -56,3 +56,11 @@ jobs:
          description: '${{ env.GITHUB_COMMIT_MSG }}'
          skaffold_file: 'config/skaffold.yaml'
          images: 'app=europe-west8-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}'
+    - name: Deploy to Cloud Run
+      id: deploy
+      uses: google-github-actions/deploy-cloudrun@v2
+      with:
+        service: 'personal-website'
+        image: 'europe-west8-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}'
+
+  
