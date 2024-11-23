@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: 'Create release name'
       run: |-
-         echo "RELEASE_NAME=release-${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> ${GITHUB_ENV}
+         echo "RELEASE_NAME=release-${GITHUB_SHA::7}" >> ${GITHUB_ENV}
     - name: 'Create Cloud Deploy release'
       uses: 'google-github-actions/create-cloud-deploy-release@v0'
       with:
