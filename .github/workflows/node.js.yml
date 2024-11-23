@@ -52,8 +52,8 @@ jobs:
       uses: 'google-github-actions/create-cloud-deploy-release@v0'
       with:
          delivery_pipeline: 'charos_eu_pipeline'
-         name: '${{ env.RELEASE_NAME }}'
-         region: '${{ env.REGION }}'
+         name: 'release-${{ env.RELEASE_NAME }}'
+         region: 'europe-west-12'
          description: '${{ env.GITHUB_COMMIT_MSG }}'
          skaffold_file: 'config/skaffold.yaml'
          images: 'app=europe-west12-docker.pkg.dev/personal-website-442420/cloud-run-source-deploy:${{ github.sha }}'
