@@ -21,6 +21,11 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - name: 'Google auth'
+      id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}' # Replace with the name of your GitHub Actions secret
     - name: 'Create release name'
       run: |-
          echo "RELEASE_NAME=release-${GITHUB_SHA::7}" >> ${GITHUB_ENV}
