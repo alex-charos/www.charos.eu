@@ -1,0 +1,40 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: 'Create release name'
+      run: |-
+         echo "RELEASE_NAME=${{ env.APP }}-${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> ${GITHUB_ENV}
+    - name: 'Create Cloud Deploy release'
+      uses: 'google-github-actions/create-cloud-deploy-release@v0'
+      with:
+         delivery_pipeline: 'charos-eu-delivery-pipeline'
+         name: 'release-${{ env.RELEASE_NAME }}'
+         region: 'europe-west-12'
+         description: '${{ env.GITHUB_COMMIT_MSG }}'
+         skaffold_file: 'config/skaffold.yaml'
+         images: 'app=europe-west12-docker.pkg.dev/personal-website-442420/cloud-run-source-deploy:${{ github.sha }}'
+    - name: Deploy to Cloud Run
+      id: deploy
+      uses: google-github-actions/deploy-cloudrun@v2
+      with:
+        delivery_pipeline: 'charos_eu_pipeline'
+        service: 'personal-website'
+        image: 'europe-west12-docker.pkg.dev/personal-website-442420/cloud-run-source-deploy:${{ github.sha }}'
+
+  
