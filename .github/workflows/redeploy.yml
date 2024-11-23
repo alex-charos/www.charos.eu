@@ -28,7 +28,7 @@ jobs:
       uses: 'google-github-actions/create-cloud-deploy-release@v0'
       with:
          delivery_pipeline: 'charos-eu-delivery-pipeline'
-         name: '${{ env.RELEASE_NAME }}'
+         name: 'release-pipeline'
          region: 'europe-west12'
          project: 'personal-website'
          description: '${{ env.GITHUB_COMMIT_MSG }}'
