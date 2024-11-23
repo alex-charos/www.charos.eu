@@ -51,7 +51,7 @@ jobs:
     - name: 'Create Cloud Deploy release'
       uses: 'google-github-actions/create-cloud-deploy-release@v0'
       with:
-         delivery_pipeline: 'charos_eu_pipeline'
+         delivery_pipeline: 'charos-eu-delivery-pipeline'
          name: 'release-${{ env.RELEASE_NAME }}'
          region: 'europe-west-12'
          description: '${{ env.GITHUB_COMMIT_MSG }}'
