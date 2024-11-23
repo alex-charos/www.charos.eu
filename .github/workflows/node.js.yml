@@ -61,6 +61,7 @@ jobs:
       id: deploy
       uses: google-github-actions/deploy-cloudrun@v2
       with:
+        delivery_pipeline: '${{ env.APP }}'
         service: 'personal-website'
         image: 'europe-west12-docker.pkg.dev/personal-website-442420/cloud-run-source-deploy:${{ github.sha }}'
 
