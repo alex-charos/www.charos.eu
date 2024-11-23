@@ -8,7 +8,7 @@ on:
     branches: [ "master" ]
   # pull_request:
   #   branches: [ "master" ]
-  # workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,6 +24,9 @@ jobs:
     - name: 'Create release name'
       run: |-
          echo "RELEASE_NAME=release-${GITHUB_SHA::7}" >> ${GITHUB_ENV}
+    - name: 'Create release name'
+      run: |-
+          gcloud config set project personal-website
     - name: 'Create Cloud Deploy release'
       uses: 'google-github-actions/create-cloud-deploy-release@v0'
       with:
